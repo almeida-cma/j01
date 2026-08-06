@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛠️ Atividades Práticas - TEMA 2</title>
+    <style>
+        /* ============================================================
+           ESTILOS GERAIS
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .header {
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #1a1a2e;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+
+        .header h1 span {
+            color: #1a1a2e;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .badge {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 5px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* ============================================================
+           CARDS
+           ============================================================ */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            color: #f7971e;
+            margin-bottom: 15px;
+            border-left: 5px solid #f7971e;
+            padding-left: 15px;
+            font-size: 1.4rem;
+        }
+
+        .card h3 {
+            color: #b8860b;
+            margin: 15px 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            color: #2c3e50;
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+
+        /* ============================================================
+           DESTAQUES
+           ============================================================ */
+        .highlight-box {
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin: 8px 0;
+        }
+
+        .highlight-box.yellow {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+
+        .highlight-box.blue {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .highlight-box.green {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+
+        .highlight-box.orange {
+            background: #ffe5cc;
+            border-left: 4px solid #fd7e14;
+        }
+
+        .highlight-box.red {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+
+        .highlight-box.purple {
+            background: #e8d5f5;
+            border-left: 4px solid #6f42c1;
+        }
+
+        /* ============================================================
+           ATIVIDADES
+           ============================================================ */
+        .atividade {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #dee2e6;
+            transition: all 0.3s;
+        }
+
+        .atividade:hover {
+            border-color: #f7971e;
+        }
+
+        .atividade .numero {
+            display: inline-block;
+            background: #f7971e;
+            color: #1a1a2e;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .atividade .titulo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            display: inline-block;
+        }
+
+        .atividade .enunciado {
+            margin: 12px 0;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #f7971e;
+        }
+
+        .atividade .enunciado code {
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .atividade .exemplo-codigo {
+            background: #1a1a2e;
+            color: #e8edf5;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            line-height: 1.8;
+            margin: 8px 0;
+            overflow-x: auto;
+        }
+
+        .atividade .exemplo-codigo .comment {
+            color: #6cffb0;
+            font-style: italic;
+        }
+
+        .atividade .exemplo-codigo .keyword {
+            color: #f7c948;
+        }
+
+        .atividade .exemplo-codigo .string {
+            color: #ff6b6b;
+        }
+
+        .atividade .exemplo-codigo .number {
+            color: #f7c948;
+        }
+
+        .atividade .exemplo-codigo .operator {
+            color: #ff6b6b;
+        }
+
+        .atividade .exemplo-codigo .function {
+            color: #6cffb0;
+        }
+
+        .atividade .saida-esperada {
+            background: #d4edda;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin: 8px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            border-left: 4px solid #28a745;
+        }
+
+        .atividade .saida-esperada strong {
+            color: #1e7e34;
+        }
+
+        /* ============================================================
+           CAMPO DE RESPOSTA
+           ============================================================ */
+        .campo-resposta {
+            margin: 12px 0;
+        }
+
+        .campo-resposta label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .campo-resposta textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            resize: vertical;
+            min-height: 60px;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .campo-resposta textarea:focus {
+            outline: none;
+            border-color: #f7971e;
+            box-shadow: 0 0 0 3px rgba(247, 151, 30, 0.2);
+        }
+
+        .campo-resposta textarea.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .campo-resposta textarea.wrong {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .campo-resposta textarea.disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* ============================================================
+           BOTÕES
+           ============================================================ */
+        .btn {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            margin: 4px;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(247, 151, 30, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 0.8rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        /* ============================================================
+           RESULTADO
+           ============================================================ */
+        .resultado-item {
+            padding: 4px 0;
+            font-size: 0.9rem;
+        }
+
+        .resultado-item.correct {
+            color: #28a745;
+        }
+
+        .resultado-item.wrong {
+            color: #dc3545;
+        }
+
+        .resultado-item .sugestao {
+            color: #6c757d;
+            font-size: 0.85rem;
+            margin-left: 20px;
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 4px 10px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .result-box {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 3px solid #f7971e;
+            display: none;
+            margin-top: 20px;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .score {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f7971e;
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+        }
+
+        .btn-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #f7971e;
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-top:hover {
+            transform: scale(1.05);
+        }
+
+        /* ============================================================
+           RESPONSIVO
+           ============================================================ */
+        @media (max-width: 768px) {
+            .card {
+                padding: 18px;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            .header {
+                padding: 20px;
+            }
+            .atividade {
+                padding: 15px;
+            }
+            .btn-group {
+                flex-direction: column;
+            }
+            .btn-group .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .header h1 {
+                font-size: 1.2rem;
+            }
+            .badge {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+            .atividade .exemplo-codigo {
+                font-size: 0.7rem;
+                padding: 10px;
+            }
+            .campo-resposta textarea {
+                font-size: 0.75rem;
+                min-height: 50px;
+            }
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            .header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .badge {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            body {
+                background: white !important;
+                padding: 10px !important;
+            }
+            .container {
+                max-width: 100% !important;
+            }
+            .btn-top {
+                display: none !important;
+            }
+            .highlight-box {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .atividade {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                border: 1px solid #ddd;
+            }
+            .atividade .exemplo-codigo {
+                background: #f5f5f5;
+                color: #1a1a2e;
+            }
+            .atividade .exemplo-codigo .comment {
+                color: #28a745;
+            }
+            .atividade .exemplo-codigo .keyword {
+                color: #f7971e;
+            }
+            .atividade .exemplo-codigo .string {
+                color: #dc3545;
+            }
+            .atividade .exemplo-codigo .number {
+                color: #f7971e;
+            }
+            .atividade .exemplo-codigo .operator {
+                color: #dc3545;
+            }
+            .atividade .exemplo-codigo .function {
+                color: #17a2b8;
+            }
+            .campo-resposta textarea {
+                border: 1px solid #ddd !important;
+            }
+            .campo-resposta textarea.correct {
+                background: #d4edda !important;
+            }
+            .campo-resposta textarea.wrong {
+                background: #f8d7da !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ============================================================
+        HEADER
+        ============================================================ -->
+        <div class="header">
+            <h1>🛠️ Atividades Práticas - TEMA <span>2</span></h1>
+            <p>Variáveis Simples em JavaScript</p>
+            <div class="badge-group">
+                <span class="badge">📝 5 atividades</span>
+                <span class="badge">💻 OneCompiler</span>
+                <span class="badge">🎯 Prática com variáveis</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        INTRODUÇÃO
+        ============================================================ -->
+        <div class="card no-print">
+            <h2>📖 Instruções</h2>
+            <p>Para cada atividade:</p>
+            <ol style="margin: 10px 0 10px 25px; color: #2c3e50; line-height: 1.8;">
+                <li>Leia o <strong>enunciado</strong> com atenção</li>
+                <li>Clique em <strong>"Abrir no OneCompiler"</strong> para escrever seu código</li>
+                <li>Execute o código e copie a <strong>saída do console</strong></li>
+                <li>Cole a saída no campo <strong>"Sua resposta"</strong></li>
+                <li>Clique em <strong>"Verificar"</strong> para corrigir</li>
+            </ol>
+            <div class="highlight-box yellow">
+                💡 <strong>DICA:</strong> Use <code>console.log()</code> para exibir os resultados no console do OneCompiler!
+            </div>
+        </div>
+
+        <!-- ============================================================
+        ATIVIDADE 1
+        ============================================================ -->
+        <div class="card">
+            <h2>📝 Atividades</h2>
+
+            <!-- ATIVIDADE 1 -->
+            <div class="atividade" id="atv1">
+                <div>
+                    <span class="numero">1</span>
+                    <span class="titulo">Declarando Variáveis</span>
+                </div>
+
+                <div class="enunciado">
+                    <p><strong>📌 Enunciado:</strong></p>
+                    <p>Declare as seguintes variáveis em JavaScript:</p>
+                    <ul style="margin: 8px 0 8px 20px;">
+                        <li>Uma variável chamada <code>nome</code> com o valor <code>"Ana"</code></li>
+                        <li>Uma variável chamada <code>idade</code> com o valor <code>25</code></li>
+                        <li>Uma variável chamada <code>cidade</code> com o valor <code>"São Paulo"</code></li>
+                    </ul>
+                    <p>Use <code>console.log()</code> para exibir as três variáveis.</p>
+
+                    <div class="highlight-box blue" style="margin-top: 8px;">
+                        🔗 <strong>Link útil:</strong>
+                        <button class="btn btn-sm" onclick="abrirOneCompiler('atv1')" style="margin-left:8px;">
+                            ▶️ Abrir no OneCompiler
+                        </button>
+                    </div>
+                </div>
+
+                <div class="saida-esperada">
+                    <strong>✅ Saída esperada:</strong><br>
+                    Ana<br>
+                    25<br>
+                    São Paulo
+                </div>
+
+                <div class="campo-resposta">
+                    <label>📋 Cole aqui a saída do console:</label>
+                    <textarea id="resposta1" placeholder="Cole a saída do OneCompiler aqui..."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-sm" onclick="verificarAtividade(1)">✅ Verificar</button>
+                    <button class="btn btn-sm btn-secondary" onclick="limparResposta(1)">🔄 Limpar</button>
+                </div>
+
+                <div id="feedback1" style="margin-top: 8px;"></div>
+            </div>
+
+            <!-- ATIVIDADE 2 -->
+            <div class="atividade" id="atv2">
+                <div>
+                    <span class="numero">2</span>
+                    <span class="titulo">Usando const e let</span>
+                </div>
+
+                <div class="enunciado">
+                    <p><strong>📌 Enunciado:</strong></p>
+                    <p>Crie as seguintes variáveis:</p>
+                    <ul style="margin: 8px 0 8px 20px;">
+                        <li>Use <code>const</code> para declarar <code>PI = 3.1415</code></li>
+                        <li>Use <code>let</code> para declarar <code>raio = 5</code></li>
+                        <li>Calcule a área do círculo: <code>area = PI * raio * raio</code></li>
+                    </ul>
+                    <p>Exiba o valor de <code>area</code>.</p>
+
+                    <div class="exemplo-codigo">
+                        <span class="comment">// Dica: estrutura básica</span>
+                        <span class="keyword">const</span> PI <span class="operator">=</span> <span class="number">3.1415</span>;
+                        <span class="keyword">let</span> raio <span class="operator">=</span> <span class="number">5</span>;
+                        <span class="keyword">let</span> area <span class="operator">=</span> PI <span class="operator">*</span> raio <span class="operator">*</span> raio;
+                        <span class="function">console</span>.<span class="function">log</span>(area);
+                    </div>
+
+                    <div class="highlight-box blue" style="margin-top: 8px;">
+                        🔗 <strong>Link útil:</strong>
+                        <button class="btn btn-sm" onclick="abrirOneCompiler('atv2')" style="margin-left:8px;">
+                            ▶️ Abrir no OneCompiler
+                        </button>
+                    </div>
+                </div>
+
+                <div class="saida-esperada">
+                    <strong>✅ Saída esperada:</strong><br>
+                    78.5375
+                </div>
+
+                <div class="campo-resposta">
+                    <label>📋 Cole aqui a saída do console:</label>
+                    <textarea id="resposta2" placeholder="Cole a saída do OneCompiler aqui..."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-sm" onclick="verificarAtividade(2)">✅ Verificar</button>
+                    <button class="btn btn-sm btn-secondary" onclick="limparResposta(2)">🔄 Limpar</button>
+                </div>
+
+                <div id="feedback2" style="margin-top: 8px;"></div>
+            </div>
+
+            <!-- ATIVIDADE 3 -->
+            <div class="atividade" id="atv3">
+                <div>
+                    <span class="numero">3</span>
+                    <span class="titulo">Strings e Concatenação</span>
+                </div>
+
+                <div class="enunciado">
+                    <p><strong>📌 Enunciado:</strong></p>
+                    <p>Declare as variáveis:</p>
+                    <ul style="margin: 8px 0 8px 20px;">
+                        <li><code>primeiroNome = "João"</code></li>
+                        <li><code>ultimoNome = "Silva"</code></li>
+                        <li><code>idade = 30</code></li>
+                    </ul>
+                    <p>Concatene para formar a frase: <code>"Meu nome é João Silva e tenho 30 anos"</code></p>
+                    <p>Use <code>console.log()</code> para exibir a frase completa.</p>
+
+                    <div class="highlight-box blue" style="margin-top: 8px;">
+                        🔗 <strong>Link útil:</strong>
+                        <button class="btn btn-sm" onclick="abrirOneCompiler('atv3')" style="margin-left:8px;">
+                            ▶️ Abrir no OneCompiler
+                        </button>
+                    </div>
+                </div>
+
+                <div class="saida-esperada">
+                    <strong>✅ Saída esperada:</strong><br>
+                    Meu nome é João Silva e tenho 30 anos
+                </div>
+
+                <div class="campo-resposta">
+                    <label>📋 Cole aqui a saída do console:</label>
+                    <textarea id="resposta3" placeholder="Cole a saída do OneCompiler aqui..."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-sm" onclick="verificarAtividade(3)">✅ Verificar</button>
+                    <button class="btn btn-sm btn-secondary" onclick="limparResposta(3)">🔄 Limpar</button>
+                </div>
+
+                <div id="feedback3" style="margin-top: 8px;"></div>
+            </div>
+
+            <!-- ATIVIDADE 4 -->
+            <div class="atividade" id="atv4">
+                <div>
+                    <span class="numero">4</span>
+                    <span class="titulo">Criando um Objeto</span>
+                </div>
+
+                <div class="enunciado">
+                    <p><strong>📌 Enunciado:</strong></p>
+                    <p>Crie um objeto chamado <code>carro</code> com as propriedades:</p>
+                    <ul style="margin: 8px 0 8px 20px;">
+                        <li><code>marca = "Toyota"</code></li>
+                        <li><code>modelo = "Corolla"</code></li>
+                        <li><code>ano = 2022</code></li>
+                    </ul>
+                    <p>Exiba cada propriedade usando <code>console.log()</code>.</p>
+
+                    <div class="exemplo-codigo">
+                        <span class="comment">// Dica: estrutura do objeto</span>
+                        <span class="keyword">let</span> carro <span class="operator">=</span> {
+                            marca: <span class="string">"Toyota"</span>,
+                            modelo: <span class="string">"Corolla"</span>,
+                            ano: <span class="number">2022</span>
+                        };
+                    </div>
+
+                    <div class="highlight-box blue" style="margin-top: 8px;">
+                        🔗 <strong>Link útil:</strong>
+                        <button class="btn btn-sm" onclick="abrirOneCompiler('atv4')" style="margin-left:8px;">
+                            ▶️ Abrir no OneCompiler
+                        </button>
+                    </div>
+                </div>
+
+                <div class="saida-esperada">
+                    <strong>✅ Saída esperada:</strong><br>
+                    Toyota<br>
+                    Corolla<br>
+                    2022
+                </div>
+
+                <div class="campo-resposta">
+                    <label>📋 Cole aqui a saída do console:</label>
+                    <textarea id="resposta4" placeholder="Cole a saída do OneCompiler aqui..."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-sm" onclick="verificarAtividade(4)">✅ Verificar</button>
+                    <button class="btn btn-sm btn-secondary" onclick="limparResposta(4)">🔄 Limpar</button>
+                </div>
+
+                <div id="feedback4" style="margin-top: 8px;"></div>
+            </div>
+
+            <!-- ATIVIDADE 5 -->
+            <div class="atividade" id="atv5">
+                <div>
+                    <span class="numero">5</span>
+                    <span class="titulo">Calculadora Simples</span>
+                </div>
+
+                <div class="enunciado">
+                    <p><strong>📌 Enunciado:</strong></p>
+                    <p>Declare duas variáveis numéricas:</p>
+                    <ul style="margin: 8px 0 8px 20px;">
+                        <li><code>num1 = 15</code></li>
+                        <li><code>num2 = 7</code></li>
+                    </ul>
+                    <p>Calcule e exiba:</p>
+                    <ul style="margin: 8px 0 8px 20px;">
+                        <li>Soma: <code>num1 + num2</code></li>
+                        <li>Subtração: <code>num1 - num2</code></li>
+                        <li>Multiplicação: <code>num1 * num2</code></li>
+                        <li>Divisão: <code>num1 / num2</code></li>
+                    </ul>
+
+                    <div class="highlight-box blue" style="margin-top: 8px;">
+                        🔗 <strong>Link útil:</strong>
+                        <button class="btn btn-sm" onclick="abrirOneCompiler('atv5')" style="margin-left:8px;">
+                            ▶️ Abrir no OneCompiler
+                        </button>
+                    </div>
+                </div>
+
+                <div class="saida-esperada">
+                    <strong>✅ Saída esperada:</strong><br>
+                    Soma: 22<br>
+                    Subtração: 8<br>
+                    Multiplicação: 105<br>
+                    Divisão: 2.142857142857143
+                </div>
+
+                <div class="campo-resposta">
+                    <label>📋 Cole aqui a saída do console:</label>
+                    <textarea id="resposta5" placeholder="Cole a saída do OneCompiler aqui..."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-sm" onclick="verificarAtividade(5)">✅ Verificar</button>
+                    <button class="btn btn-sm btn-secondary" onclick="limparResposta(5)">🔄 Limpar</button>
+                </div>
+
+                <div id="feedback5" style="margin-top: 8px;"></div>
+            </div>
+
+            <!-- BOTÕES GERAIS -->
+            <div style="text-align: center; margin-top: 20px;" class="no-print">
+                <button class="btn" onclick="verificarTodas()">✅ Verificar todas</button>
+                <button class="btn btn-secondary" onclick="limparTodas()">🔄 Limpar todas</button>
+                <button class="btn btn-danger" onclick="recomecar()">🔁 Recomeçar</button>
+            </div>
+
+            <!-- RESULTADO GERAL -->
+            <div class="result-box" id="resultadoGeral">
+                <h2>📊 Resultado Final</h2>
+                <div class="score" id="pontuacaoGeral">0 / 5</div>
+                <div id="feedbackGeral"></div>
+                <div style="margin-top: 15px;" class="no-print">
+                    <button class="btn btn-success" onclick="window.print()">🖨️ Imprimir Resultado (PDF)</button>
+                    <button class="btn btn-danger" onclick="recomecar()">🔁 Recomeçar</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================================
+        FOOTER
+        ============================================================ -->
+        <div class="footer no-print">
+            <p>🛠️ TEMA 2 - Atividades Práticas | Variáveis em JavaScript</p>
+            <p>🎯 Pratique com OneCompiler e teste seus conhecimentos!</p>
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+    BOTÃO TOPO
+    ============================================================ -->
+    <button class="btn-top no-print" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Topo</button>
+
+    <!-- ============================================================
+    SCRIPTS
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // ABRIR ONECOMPILER
+        // ============================================================
+        function abrirOneCompiler(atividade) {
+            const codigos = {
+                atv1: `// ATIVIDADE 1: Declarando Variáveis
+        // Declare as variáveis solicitadas
+        let nome = "Ana";
+        let idade = 25;
+        let cidade = "São Paulo";
+
+        // Exiba as três variáveis
+        console.log(nome);
+        console.log(idade);
+        console.log(cidade);`,
+
+                atv2: `// ATIVIDADE 2: Usando const e let
+        // Declare as variáveis
+        const PI = 3.1415;
+        let raio = 5;
+
+        // Calcule a área
+        let area = PI * raio * raio;
+
+        // Exiba o resultado
+        console.log(area);`,
+
+                atv3: `// ATIVIDADE 3: Strings e Concatenação
+        // Declare as variáveis
+        let primeiroNome = "João";
+        let ultimoNome = "Silva";
+        let idade = 30;
+
+        // Concatene para formar a frase
+        let frase = "Meu nome é " + primeiroNome + " " + ultimoNome + " e tenho " + idade + " anos";
+
+        // Exiba a frase
+        console.log(frase);`,
+
+                atv4: `// ATIVIDADE 4: Criando um Objeto
+        // Crie o objeto carro
+        let carro = {
+            marca: "Toyota",
+            modelo: "Corolla",
+            ano: 2022
+        };
+
+        // Exiba cada propriedade
+        console.log(carro.marca);
+        console.log(carro.modelo);
+        console.log(carro.ano);`,
+
+                atv5: `// ATIVIDADE 5: Calculadora Simples
+        // Declare as variáveis
+        let num1 = 15;
+        let num2 = 7;
+
+        // Calcule e exiba as operações
+        console.log("Soma: " + (num1 + num2));
+        console.log("Subtração: " + (num1 - num2));
+        console.log("Multiplicação: " + (num1 * num2));
+        console.log("Divisão: " + (num1 / num2));`
+            };
+
+            const url = 'https://onecompiler.com/javascript?code=' + encodeURIComponent(codigos[atividade]);
+            window.open(url, '_blank');
+        }
+
+        // ============================================================
+        // GABARITO DAS ATIVIDADES
+        // ============================================================
+        const gabarito = {
+            1: {
+                saidas: ['Ana', '25', 'São Paulo'],
+                normalize: function(texto) {
+                    return texto.trim().replace(/\s+/g, ' ');
+                }
+            },
+            2: {
+                saidas: ['78.5375'],
+                normalize: function(texto) {
+                    return texto.trim().replace(/\s+/g, ' ');
+                }
+            },
+            3: {
+                saidas: ['Meu nome é João Silva e tenho 30 anos'],
+                normalize: function(texto) {
+                    return texto.trim().replace(/\s+/g, ' ');
+                }
+            },
+            4: {
+                saidas: ['Toyota', 'Corolla', '2022'],
+                normalize: function(texto) {
+                    return texto.trim().replace(/\s+/g, ' ');
+                }
+            },
+            5: {
+                saidas: ['Soma: 22', 'Subtração: 8', 'Multiplicação: 105', 'Divisão: 2.142857142857143'],
+                normalize: function(texto) {
+                    return texto.trim().replace(/\s+/g, ' ');
+                }
+            }
+        };
+
+        // ============================================================
+        // VERIFICAR ATIVIDADE INDIVIDUAL
+        // ============================================================
+        function verificarAtividade(num) {
+            const textarea = document.getElementById('resposta' + num);
+            const feedback = document.getElementById('feedback' + num);
+            const resposta = textarea.value.trim();
+
+            if (resposta === '') {
+                feedback.innerHTML = '<div class="highlight-box orange">⚠️ Cole a saída do console antes de verificar!</div>';
+                return;
+            }
+
+            const gab = gabarito[num];
+            const linhas = resposta.split('\n').filter(line => line.trim() !== '');
+            const linhasNormalizadas = linhas.map(gab.normalize);
+            const esperadoNormalizado = gab.saidas.map(gab.normalize);
+
+            let corretas = 0;
+            let resultadoHTML = '';
+
+            // Verifica se as linhas correspondem
+            for (let i = 0; i < esperadoNormalizado.length; i++) {
+                const linhaAtual = linhasNormalizadas[i] || '';
+                const isCorrect = linhaAtual === esperadoNormalizado[i];
+
+                if (isCorrect) {
+                    corretas++;
+                    resultadoHTML += `<div class="resultado-item correct">✅ Linha ${i+1}: "${linhas[i] || ''}" - Correta</div>`;
+                } else {
+                    resultadoHTML += `<div class="resultado-item wrong">❌ Linha ${i+1}: "${linhas[i] || ''}" - Incorreta (esperado: "${gab.saidas[i]}")</div>`;
+                }
+            }
+
+            // Verifica se tem linhas extras
+            if (linhas.length > esperadoNormalizado.length) {
+                for (let i = esperadoNormalizado.length; i < linhas.length; i++) {
+                    resultadoHTML +=
+                        `<div class="resultado-item wrong">⚠️ Linha ${i+1}: "${linhas[i]}" - Extra (não esperado)</div>`;
+                }
+            }
+
+            const total = Math.max(linhas.length, esperadoNormalizado.length);
+            const percentual = Math.round((corretas / esperadoNormalizado.length) * 100);
+
+            let status = '';
+            let cor = '';
+            if (percentual === 100 && linhas.length === esperadoNormalizado.length) {
+                status = '🎉 Perfeito! Todas as linhas estão corretas!';
+                cor = 'green';
+                textarea.className = 'correct';
+            } else if (percentual >= 50) {
+                status = `💪 Quase lá! Você acertou ${corretas} de ${esperadoNormalizado.length} linhas.`;
+                cor = 'blue';
+                textarea.className = '';
+            } else {
+                status = `📚 Continue praticando! Você acertou ${corretas} de ${esperadoNormalizado.length} linhas.`;
+                cor = 'orange';
+                textarea.className = 'wrong';
+            }
+
+            // Sugestão de resposta
+            const sugestao = gab.saidas.join('\n');
+
+            feedback.innerHTML = `
+                    <div class="highlight-box ${cor}" style="margin-top: 8px;">
+                        <strong>${status}</strong>
+                        <div style="margin-top: 4px;">${resultadoHTML}</div>
+                        <div style="margin-top: 8px; font-size: 0.85rem;">
+                            💡 <strong>Sugestão de saída:</strong>
+                            <div style="background: #1a1a2e; color: #6cffb0; padding: 8px 12px; border-radius: 6px; font-family: monospace; margin-top: 4px; font-size: 0.8rem;">
+                                ${sugestao}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            // Desabilita o textarea após verificação
+            textarea.disabled = true;
+            textarea.classList.add('disabled');
+        }
+
+        // ============================================================
+        // VERIFICAR TODAS
+        // ============================================================
+        function verificarTodas() {
+            let total = 0;
+            let acertos = 0;
+            let feedbackHTML = '';
+
+            for (let i = 1; i <= 5; i++) {
+                const textarea = document.getElementById('resposta' + i);
+                const resposta = textarea.value.trim();
+
+                if (resposta === '') {
+                    feedbackHTML += `<div class="resultado-item wrong">❌ Atividade ${i} - Não respondida</div>`;
+                    continue;
+                }
+
+                total++;
+                const gab = gabarito[i];
+                const linhas = resposta.split('\n').filter(line => line.trim() !== '');
+                const linhasNormalizadas = linhas.map(gab.normalize);
+                const esperadoNormalizado = gab.saidas.map(gab.normalize);
+
+                let corretas = 0;
+                for (let j = 0; j < esperadoNormalizado.length; j++) {
+                    if (linhasNormalizadas[j] === esperadoNormalizado[j]) {
+                        corretas++;
+                    }
+                }
+
+                const percentual = Math.round((corretas / esperadoNormalizado.length) * 100);
+                if (percentual === 100 && linhas.length === esperadoNormalizado.length) {
+                    acertos++;
+                    feedbackHTML += `<div class="resultado-item correct">✅ Atividade ${i} - Correta</div>`;
+                } else {
+                    feedbackHTML += `<div class="resultado-item wrong">❌ Atividade ${i} - Incorreta (${corretas}/${esperadoNormalizado.length} linhas corretas)</div>`;
+                }
+
+                // Marca como verificada
+                textarea.disabled = true;
+                textarea.classList.add('disabled');
+                if (percentual === 100 && linhas.length === esperadoNormalizado.length) {
+                    textarea.className = 'correct';
+                } else {
+                    textarea.className = 'wrong';
+                }
+            }
+
+            document.getElementById('pontuacaoGeral').textContent = acertos + ' / ' + total;
+            document.getElementById('feedbackGeral').innerHTML = feedbackHTML;
+            document.getElementById('resultadoGeral').classList.add('show');
+
+            // Scroll para o resultado
+            document.getElementById('resultadoGeral').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ============================================================
+        // LIMPAR RESPOSTA INDIVIDUAL
+        // ============================================================
+        function limparResposta(num) {
+            const textarea = document.getElementById('resposta' + num);
+            const feedback = document.getElementById('feedback' + num);
+
+            textarea.value = '';
+            textarea.disabled = false;
+            textarea.className = '';
+            textarea.classList.remove('correct', 'wrong', 'disabled');
+            feedback.innerHTML = '';
+        }
+
+        // ============================================================
+        // LIMPAR TODAS
+        // ============================================================
+        function limparTodas() {
+            for (let i = 1; i <= 5; i++) {
+                limparResposta(i);
+            }
+            document.getElementById('resultadoGeral').classList.remove('show');
+        }
+
+        // ============================================================
+        // RECOMEÇAR
+        // ============================================================
+        function recomecar() {
+            if (confirm('🔁 Tem certeza que deseja recomeçar? Todas as respostas serão apagadas.')) {
+                limparTodas();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // ============================================================
+        // PERMITE PASTAR NO TEXTAREA
+        // ============================================================
+        document.querySelectorAll('.campo-resposta textarea').forEach(textarea => {
+            textarea.addEventListener('paste', function(e) {
+                // Permite colar normalmente
+                setTimeout(() => {
+                    // Remove espaços extras no início e fim
+                    this.value = this.value.trim();
+                }, 100);
+            });
+        });
+    </script>
+
+</body>
+</html>

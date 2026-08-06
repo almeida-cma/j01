@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📝 Atividades Práticas - Variáveis em JavaScript</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #1a1a2e;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .badge {
+            background: rgba(0,0,0,0.1);
+            padding: 5px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #f7971e;
+            margin-bottom: 15px;
+            border-left: 5px solid #f7971e;
+            padding-left: 15px;
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            color: #2c3e50;
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+
+        .card ol {
+            color: #2c3e50;
+            line-height: 1.8;
+            margin: 10px 0 10px 25px;
+        }
+
+        .highlight-box {
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin: 8px 0;
+        }
+
+        .highlight-box.yellow {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+
+        .highlight-box.orange {
+            background: #ffe5cc;
+            border-left: 4px solid #fd7e14;
+        }
+
+        .highlight-box.green {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+
+        .highlight-box.blue {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .highlight-box.purple {
+            background: #e8d5f5;
+            border-left: 4px solid #6f42c1;
+        }
+
+        .highlight-box.red {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+
+        .atividade {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px solid #dee2e6;
+            transition: all 0.3s;
+        }
+
+        .atividade:hover {
+            border-color: #f7971e;
+        }
+
+        .atividade .cabecalho {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .atividade .numero {
+            background: #f7971e;
+            color: #1a1a2e;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .atividade .titulo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .atividade .enunciado {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border-left: 4px solid #f7971e;
+            margin-bottom: 12px;
+        }
+
+        .atividade .enunciado code {
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #dc3545;
+        }
+
+        .atividade .enunciado .destaque {
+            background: #fff3cd;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin: 6px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            border-left: 3px solid #ffc107;
+        }
+
+        .code-wrapper {
+            position: relative;
+            margin: 10px 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .code-wrapper .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1a1a2e;
+            padding: 6px 14px;
+            border-bottom: 1px solid #2a2a4e;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .code-wrapper .code-header .code-title {
+            color: #aab3cc;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .code-wrapper .code-header .code-actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .code-wrapper .code-header .code-actions button {
+            background: #2a3450;
+            color: #e8edf5;
+            border: none;
+            padding: 3px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .code-wrapper .code-header .code-actions button:hover {
+            background: #f7c948;
+            color: #0b0e1a;
+        }
+
+        .code-wrapper .code-header .code-actions button.copy-btn:hover {
+            background: #6cffb0;
+            color: #0b0e1a;
+        }
+
+        .code-block {
+            background: #1a1a2e;
+            color: #e8edf5;
+            padding: 15px 18px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            line-height: 1.8;
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .code-block .comment {
+            color: #6cffb0;
+            font-style: italic;
+        }
+
+        .code-block .keyword {
+            color: #f7c948;
+        }
+
+        .code-block .string {
+            color: #ff6b6b;
+        }
+
+        .code-block .number {
+            color: #f7c948;
+        }
+
+        .code-block .operator {
+            color: #ff6b6b;
+        }
+
+        .code-block .tag {
+            color: #ff6b6b;
+        }
+
+        .code-block .attribute {
+            color: #6cffb0;
+        }
+
+        .code-block .selector {
+            color: #f7c948;
+        }
+
+        .code-block .property {
+            color: #6cffb0;
+        }
+
+        .code-block .value {
+            color: #ff6b6b;
+        }
+
+        .code-block .destaque-edit {
+            background: rgba(247, 201, 72, 0.2);
+            border-left: 3px solid #f7c948;
+            padding-left: 8px;
+        }
+
+        .copy-feedback {
+            position: absolute;
+            top: 38px;
+            right: 12px;
+            background: #28a745;
+            color: white;
+            padding: 3px 12px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .copy-feedback.show {
+            opacity: 1;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(247,151,30,0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 0.8rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255,255,255,0.7);
+            font-size: 12px;
+        }
+
+        .btn-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #f7971e;
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-top:hover {
+            transform: scale(1.05);
+        }
+
+        .entrega-box {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 20px;
+            border: 3px solid #28a745;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .entrega-box .icone-grande {
+            font-size: 3rem;
+        }
+
+        .entrega-box h3 {
+            color: #1e7e34;
+            margin: 10px 0;
+        }
+
+        .entrega-box .link-github {
+            display: inline-block;
+            background: #24292e;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px 0;
+            transition: all 0.3s;
+        }
+
+        .entrega-box .link-github:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .card { padding: 18px; }
+            .header h1 { font-size: 1.5rem; }
+            .header { padding: 20px; }
+            .atividade { padding: 15px; }
+            .code-block { font-size: 0.7rem; padding: 12px; max-height: 300px; }
+            .code-wrapper .code-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .code-wrapper .code-header .code-actions {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .header h1 { font-size: 1.2rem; }
+            .badge { font-size: 0.65rem; padding: 3px 10px; }
+            .code-block { font-size: 0.6rem; padding: 10px; max-height: 250px; }
+            .atividade .cabecalho { flex-direction: column; align-items: flex-start; }
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            .card { break-inside: avoid; page-break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+            .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            body { background: white !important; padding: 10px !important; }
+            .container { max-width: 100% !important; }
+            .btn-top { display: none !important; }
+            .atividade { break-inside: avoid; page-break-inside: avoid; border: 1px solid #ddd; }
+            .code-block { background: #f5f5f5; color: #1a1a2e; }
+            .code-block .comment { color: #28a745; }
+            .code-block .keyword { color: #f7971e; }
+            .code-block .string { color: #dc3545; }
+            .code-block .number { color: #f7971e; }
+            .code-block .operator { color: #dc3545; }
+            .code-block .tag { color: #dc3545; }
+            .code-block .attribute { color: #28a745; }
+            .code-block .selector { color: #f7971e; }
+            .code-block .property { color: #28a745; }
+            .code-block .value { color: #dc3545; }
+            .code-wrapper .code-header .code-actions button { display: none !important; }
+            .code-wrapper .code-header .code-title { color: #333; }
+            .entrega-box { border: 2px solid #28a745 !important; }
+            .entrega-box .link-github { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>📝 Atividades Práticas</h1>
+            <p>Variáveis em JavaScript - HTML + CSS + JS</p>
+            <div class="badge-group">
+                <span class="badge">📝 4 atividades</span>
+                <span class="badge">💻 Código completo</span>
+                <span class="badge">🎯 Modifique e envie</span>
+            </div>
+        </div>
+
+        <div class="card no-print">
+            <h2>📖 Como funciona?</h2>
+            <p>Cada atividade contém um <strong>exemplo completo</strong> (HTML + CSS + JS) que você deve:</p>
+            <ol>
+                <li>📋 <strong>Copiar</strong> o código completo</li>
+                <li>📁 <strong>Criar</strong> um arquivo <code>.html</code> no VSCode</li>
+                <li>✏️ <strong>Modificar</strong> as variáveis conforme solicitado</li>
+                <li>💡 <strong>Fazer</strong> as alterações extras sugeridas (CSS/HTML)</li>
+                <li>🚀 <strong>Testar</strong> no navegador</li>
+            </ol>
+            <div class="highlight-box yellow">
+                💡 <strong>DICA:</strong> Use o VSCode com a extensão "Live Server" para ver as alterações em tempo real!
+            </div>
+        </div>
+
+        <!-- ============================================================
+        ATIVIDADE 1
+        ============================================================ -->
+        <div class="atividade">
+            <div class="cabecalho">
+                <span class="numero">1</span>
+                <span class="titulo">Mensagem Personalizada</span>
+            </div>
+
+            <div class="enunciado">
+                <p><strong>📌 Enunciado:</strong></p>
+                <p>Modifique a variável <code>mensagem</code> para exibir: <strong>"Bem-vindo(a) ao JavaScript!"</strong></p>
+
+                <div class="highlight-box orange">
+                    ✏️ <strong>Modifique:</strong> a variável <code>mensagem</code> dentro do JavaScript.
+                </div>
+
+                <div class="highlight-box blue">
+                    🎨 <strong>DESAFIO EXTRA:</strong> Altere a cor de fundo da página e a cor do texto da mensagem no CSS.
+                </div>
+            </div>
+
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 atividade1.html</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo('codigo1')">📋 Copiar</button>
+                    </div>
+                </div>
+                <div class="code-block" id="codigo1">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mensagem Personalizada&lt;/title&gt;
+    &lt;style&gt;
+        /* ESTILOS */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0;
+            margin: 0;
+        }
+        .caixa {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+        }
+        .mensagem {
+            font-size: 1.8rem;
+            color: #f7971e;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        h1 {
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="caixa"&gt;
+        &lt;h1&gt;📌 Mensagem&lt;/h1&gt;
+        &lt;div class="mensagem" id="mensagem"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        // ✏️ MODIFIQUE A VARIÁVEL ABAIXO
+        let mensagem = "Olá, mundo!";
+
+        // Exibe a mensagem na tela
+        document.getElementById("mensagem").textContent = mensagem;
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+                <span class="copy-feedback" id="feedback-codigo1">✅ Copiado!</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        ATIVIDADE 2
+        ============================================================ -->
+        <div class="atividade">
+            <div class="cabecalho">
+                <span class="numero">2</span>
+                <span class="titulo">Calculadora de Soma</span>
+            </div>
+
+            <div class="enunciado">
+                <p><strong>📌 Enunciado:</strong></p>
+                <p>Modifique as variáveis <code>num1</code> e <code>num2</code> para que a soma seja <strong>15</strong>.</p>
+
+                <div class="highlight-box orange">
+                    ✏️ <strong>Modifique:</strong> as variáveis <code>num1</code> e <code>num2</code> dentro do JavaScript.
+                </div>
+
+                <div class="highlight-box blue">
+                    🎨 <strong>DESAFIO EXTRA:</strong> Adicione uma nova variável <code>num3</code> e exiba a soma dos três números.
+                </div>
+            </div>
+
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 atividade2.html</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo('codigo2')">📋 Copiar</button>
+                    </div>
+                </div>
+                <div class="code-block" id="codigo2">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Calculadora de Soma&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0;
+            margin: 0;
+        }
+        .caixa {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .numero {
+            font-size: 1.3rem;
+            color: #f7971e;
+            font-weight: bold;
+        }
+        .resultado {
+            font-size: 1.8rem;
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        h1 { color: #1a1a2e; }
+        p { font-size: 1.1rem; color: #2c3e50; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="caixa"&gt;
+        &lt;h1&gt;🧮 Calculadora&lt;/h1&gt;
+        &lt;p&gt;Número 1: &lt;span class="numero" id="num1"&gt;&lt;/span&gt;&lt;/p&gt;
+        &lt;p&gt;Número 2: &lt;span class="numero" id="num2"&gt;&lt;/span&gt;&lt;/p&gt;
+        &lt;div class="resultado" id="soma"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        // ✏️ MODIFIQUE AS VARIÁVEIS ABAIXO
+        let num1 = 5;
+        let num2 = 3;
+        let soma = num1 + num2;
+
+        document.getElementById("num1").textContent = num1;
+        document.getElementById("num2").textContent = num2;
+        document.getElementById("soma").textContent = "Soma: " + soma;
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+                <span class="copy-feedback" id="feedback-codigo2">✅ Copiado!</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        ATIVIDADE 3
+        ============================================================ -->
+        <div class="atividade">
+            <div class="cabecalho">
+                <span class="numero">3</span>
+                <span class="titulo">Mudança de Cor</span>
+            </div>
+
+            <div class="enunciado">
+                <p><strong>📌 Enunciado:</strong></p>
+                <p>Modifique a variável <code>cor</code> para <strong>"blue"</strong> e veja a cor do quadrado mudar.</p>
+
+                <div class="highlight-box orange">
+                    ✏️ <strong>Modifique:</strong> a variável <code>cor</code> dentro do JavaScript.
+                </div>
+
+                <div class="highlight-box blue">
+                    🎨 <strong>DESAFIO EXTRA:</strong> Adicione um botão que, ao ser clicado, altere a cor do quadrado para uma cor aleatória.
+                </div>
+            </div>
+
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 atividade3.html</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo('codigo3')">📋 Copiar</button>
+                    </div>
+                </div>
+                <div class="code-block" id="codigo3">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mudança de Cor&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0;
+            margin: 0;
+        }
+        .caixa {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .quadrado {
+            width: 150px;
+            height: 150px;
+            border-radius: 12px;
+            margin: 20px auto;
+            transition: all 0.3s;
+            background: #f7971e;
+        }
+        .info {
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+        .info span {
+            font-weight: bold;
+            color: #f7971e;
+        }
+        h1 { color: #1a1a2e; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="caixa"&gt;
+        &lt;h1&gt;🎨 Mudança de Cor&lt;/h1&gt;
+        &lt;div class="quadrado" id="quadrado"&gt;&lt;/div&gt;
+        &lt;p class="info"&gt;Cor atual: &lt;span id="corAtual"&gt;--&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        // ✏️ MODIFIQUE A VARIÁVEL ABAIXO
+        let cor = "orange";
+
+        document.getElementById("quadrado").style.background = cor;
+        document.getElementById("corAtual").textContent = cor;
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+                <span class="copy-feedback" id="feedback-codigo3">✅ Copiado!</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        ATIVIDADE 4
+        ============================================================ -->
+        <div class="atividade">
+            <div class="cabecalho">
+                <span class="numero">4</span>
+                <span class="titulo">Nome Completo</span>
+            </div>
+
+            <div class="enunciado">
+                <p><strong>📌 Enunciado:</strong></p>
+                <p>Modifique as variáveis <code>nome</code> e <code>sobrenome</code> para exibir seu nome completo.</p>
+
+                <div class="highlight-box orange">
+                    ✏️ <strong>Modifique:</strong> as variáveis <code>nome</code> e <code>sobrenome</code> dentro do JavaScript.
+                </div>
+
+                <div class="highlight-box blue">
+                    🎨 <strong>DESAFIO EXTRA:</strong> Adicione um campo <code>idade</code> e exiba "Nome completo: X, Idade: Y anos".
+                </div>
+            </div>
+
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 atividade4.html</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo('codigo4')">📋 Copiar</button>
+                    </div>
+                </div>
+                <div class="code-block" id="codigo4">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Nome Completo&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0;
+            margin: 0;
+        }
+        .caixa {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .nome {
+            font-size: 1.8rem;
+            color: #f7971e;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        h1 { color: #1a1a2e; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="caixa"&gt;
+        &lt;h1&gt;👤 Nome Completo&lt;/h1&gt;
+        &lt;div class="nome" id="nomeCompleto"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        // ✏️ MODIFIQUE AS VARIÁVEIS ABAIXO
+        let nome = "João";
+        let sobrenome = "Silva";
+
+        let nomeCompleto = nome + " " + sobrenome;
+        document.getElementById("nomeCompleto").textContent = "Nome completo: " + nomeCompleto;
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+                <span class="copy-feedback" id="feedback-codigo4">✅ Copiado!</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        ENTREGA
+        ============================================================ -->
+        <div class="card">
+            <h2>📤 Entrega das Atividades</h2>
+
+            <div class="entrega-box">
+                <div class="icone-grande">🚀</div>
+                <h3>Pronto para entregar?</h3>
+                <p>Após completar todas as atividades com as modificações solicitadas:</p>
+                <ol style="text-align: left; max-width: 500px; margin: 10px auto; line-height: 2;">
+                    <li>📁 Crie um repositório no <strong>GitHub</strong></li>
+                    <li>📤 Envie os <strong>4 arquivos HTML</strong> modificados</li>
+                    <li>📝 Inclua um <strong>README.md</strong> explicando as alterações</li>
+                    <li>🔗 Compartilhe o link do repositório</li>
+                </ol>
+
+                <a href="https://github.com/new" target="_blank" class="link-github">
+                    🐱 Criar repositório no GitHub
+                </a>
+
+                <div class="highlight-box purple" style="margin-top: 15px; text-align: left;">
+                    📌 <strong>Estrutura sugerida para o README.md:</strong>
+                    <div style="background: #f8f9fa; padding: 10px; border-radius: 6px; margin-top: 6px; font-family: monospace; font-size: 0.8rem;">
+                        # Atividades - Variáveis em JavaScript<br>
+                        <br>
+                        ## Atividade 1: Mensagem Personalizada<br>
+                        - Modifiquei a variável mensagem para "Bem-vindo(a) ao JavaScript!"<br>
+                        - Alterei a cor de fundo para #1a1a2e e a cor do texto para #ffffff<br>
+                        <br>
+                        ## Atividade 2: Calculadora de Soma<br>
+                        - Altere num1 e num2 para que a soma seja 15<br>
+                        - Adicionei num3 e calculei a soma dos três números<br>
+                        <br>
+                        ## Atividade 3: Mudança de Cor<br>
+                        - Modifiquei a variável cor para "blue"<br>
+                        - Adicionei um botão para cores aleatórias<br>
+                        <br>
+                        ## Atividade 4: Nome Completo<br>
+                        - Modifiquei nome e sobrenome para os meus<br>
+                        - Adicionei campo idade e exibi na tela<br>
+                        <br>
+                        ## Como executar<br>
+                        Abra cada arquivo .html no navegador.
+                    </div>
+                </div>
+
+                <div class="highlight-box yellow" style="margin-top: 15px; text-align: left;">
+                    📤 <strong>Link para entrega:</strong>
+                    <p style="margin-top: 4px;">Cole o link do seu repositório GitHub no formulário de entrega:</p>
+                    <a href="https://forms.gle/zbUB57A4FteUDsKSA" target="_blank" style="color: #f7971e; font-weight: bold;">
+                        📝 Formulário de Entrega
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer no-print">
+            <p>📝 Atividades Práticas - Variáveis em JavaScript</p>
+            <p>💻 Copie, modifique, teste no VSCode e envie para o GitHub!</p>
+        </div>
+
+    </div>
+
+    <button class="btn-top no-print" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Topo</button>
+
+    <script>
+        // ============================================================
+        // FUNÇÃO: COPIAR CÓDIGO
+        // ============================================================
+        function copiarCodigo(elementId) {
+            var codeElement = document.getElementById(elementId);
+            var codeText = codeElement.textContent;
+            var cleanCode = codeText.trim();
+
+            navigator.clipboard.writeText(cleanCode).then(function() {
+                var feedbackId = 'feedback-' + elementId;
+                var feedback = document.getElementById(feedbackId);
+                if (feedback) {
+                    feedback.classList.add('show');
+                    setTimeout(function() {
+                        feedback.classList.remove('show');
+                    }, 2000);
+                }
+            }).catch(function() {
+                alert('Não foi possível copiar. Selecione o código manualmente.');
+            });
+        }
+    </script>
+
+</body>
+</html>

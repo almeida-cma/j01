@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📦 TEMA 2 - Variáveis em JavaScript</title>
+    <style>
+        /* ============================================================
+           ESTILOS GERAIS
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .header {
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #1a1a2e;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+
+        .header h1 span {
+            color: #1a1a2e;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .badge {
+            background: rgba(0,0,0,0.1);
+            padding: 5px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* ============================================================
+           CARDS
+           ============================================================ */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #f7971e;
+            margin-bottom: 15px;
+            border-left: 5px solid #f7971e;
+            padding-left: 15px;
+            font-size: 1.4rem;
+        }
+
+        .card h3 {
+            color: #b8860b;
+            margin: 18px 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .card h4 {
+            color: #2c3e50;
+            margin: 12px 0 6px 0;
+            font-size: 0.95rem;
+        }
+
+        .card p {
+            color: #2c3e50;
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+
+        .card ul,
+        .card ol {
+            color: #2c3e50;
+            line-height: 1.7;
+            margin: 8px 0 12px 25px;
+        }
+
+        .card li {
+            margin-bottom: 4px;
+        }
+
+        /* ============================================================
+           DESTAQUES
+           ============================================================ */
+        .highlight-box {
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin: 8px 0;
+        }
+
+        .highlight-box.yellow {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+
+        .highlight-box.blue {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .highlight-box.green {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+
+        .highlight-box.purple {
+            background: #e8d5f5;
+            border-left: 4px solid #6f42c1;
+        }
+
+        .highlight-box.orange {
+            background: #ffe5cc;
+            border-left: 4px solid #fd7e14;
+        }
+
+        .highlight-box.red {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+
+        .highlight-box.tip {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+        }
+
+        /* ============================================================
+           CÓDIGO COM BOTÕES
+           ============================================================ */
+        .code-wrapper {
+            position: relative;
+            margin: 10px 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .code-wrapper .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1a1a2e;
+            padding: 6px 14px;
+            border-bottom: 1px solid #2a2a4e;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .code-wrapper .code-header .code-title {
+            color: #aab3cc;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .code-wrapper .code-header .code-actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .code-wrapper .code-header .code-actions button {
+            background: #2a3450;
+            color: #e8edf5;
+            border: none;
+            padding: 3px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .code-wrapper .code-header .code-actions button:hover {
+            background: #f7c948;
+            color: #0b0e1a;
+        }
+
+        .code-wrapper .code-header .code-actions button.copy-btn:hover {
+            background: #6cffb0;
+            color: #0b0e1a;
+        }
+
+        .code-wrapper .code-header .code-actions button.run-btn:hover {
+            background: #f7c948;
+            color: #0b0e1a;
+        }
+
+        .code-block {
+            background: #1a1a2e;
+            color: #e8edf5;
+            padding: 15px 18px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            line-height: 1.8;
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .code-block .comment {
+            color: #6cffb0;
+            font-style: italic;
+        }
+
+        .code-block .keyword {
+            color: #f7c948;
+        }
+
+        .code-block .string {
+            color: #ff6b6b;
+        }
+
+        .code-block .function {
+            color: #6cffb0;
+        }
+
+        .code-block .variable {
+            color: #aab3cc;
+        }
+
+        .code-block .number {
+            color: #f7c948;
+        }
+
+        .code-block .operator {
+            color: #ff6b6b;
+        }
+
+        .code-block .output {
+            color: #6cffb0;
+        }
+
+        .code-block .error {
+            color: #ff6b6b;
+        }
+
+        .copy-feedback {
+            position: absolute;
+            top: 38px;
+            right: 12px;
+            background: #28a745;
+            color: white;
+            padding: 3px 12px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .copy-feedback.show {
+            opacity: 1;
+        }
+
+        /* ============================================================
+           TABELA DE TIPOS
+           ============================================================ */
+        .tabela-tipos {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .tabela-tipos th {
+            background: #f7971e;
+            color: #1a1a2e;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .tabela-tipos td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .tabela-tipos tr:hover td {
+            background: #f8f9fa;
+        }
+
+        .tabela-tipos .exemplo {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        /* ============================================================
+           CONCEITOS EM GRID
+           ============================================================ */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .concept-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            border-bottom: 4px solid #f7971e;
+        }
+
+        .concept-box h4 {
+            color: #f7971e;
+            margin-bottom: 5px;
+        }
+
+        .concept-box p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        .concept-box .code-mini {
+            background: #1a1a2e;
+            color: #e8edf5;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            margin-top: 6px;
+            overflow-x: auto;
+        }
+
+        .concept-box .code-mini .c-comment {
+            color: #6cffb0;
+        }
+
+        .concept-box .code-mini .c-keyword {
+            color: #f7c948;
+        }
+
+        .concept-box .code-mini .c-string {
+            color: #ff6b6b;
+        }
+
+        .concept-box .code-mini .c-number {
+            color: #f7c948;
+        }
+
+        .concept-box .code-mini .c-operator {
+            color: #ff6b6b;
+        }
+
+        /* ============================================================
+           COMPARAÇÃO
+           ============================================================ */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin: 12px 0;
+        }
+
+        .comparison-item {
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #dee2e6;
+        }
+
+        .comparison-item.var {
+            border-color: #ffc107;
+            background: #fff3cd;
+        }
+
+        .comparison-item.let {
+            border-color: #17a2b8;
+            background: #d1ecf1;
+        }
+
+        .comparison-item.const {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .comparison-item h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .comparison-item .exemplo {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 4px 0;
+        }
+
+        .comparison-item .descricao {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+           QUESTÕES
+           ============================================================ */
+        .question {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px 18px;
+            margin-bottom: 15px;
+            border-left: 4px solid #f7971e;
+        }
+
+        .question.true-false {
+            border-left-color: #17a2b8;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #f7971e;
+            color: #1a1a2e;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .question-text {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .question-text code {
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .options.true-false {
+            grid-template-columns: 1fr 1fr;
+            max-width: 300px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .option:hover:not(.disabled) {
+            border-color: #f7971e;
+            background: #fff8f0;
+        }
+
+        .option input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .option label {
+            font-size: 14px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .option.wrong {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .option.disabled {
+            opacity: 0.7;
+            cursor: default;
+        }
+
+        .option.disabled:hover {
+            border-color: #e9ecef;
+            background: white;
+        }
+
+        /* ============================================================
+           BOTÕES
+           ============================================================ */
+        .btn {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin: 5px;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(247, 151, 30, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        /* ============================================================
+           RESULTADO
+           ============================================================ */
+        .result-box {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 3px solid #f7971e;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #f7971e;
+        }
+
+        .feedback-item {
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .feedback-item.correct {
+            color: #28a745;
+        }
+
+        .feedback-item.wrong {
+            color: #dc3545;
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+        }
+
+        .btn-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #f7971e;
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-top:hover {
+            transform: scale(1.05);
+        }
+
+        /* ============================================================
+           RESPONSIVO
+           ============================================================ */
+        @media (max-width: 768px) {
+            .card {
+                padding: 18px;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            .header {
+                padding: 20px;
+            }
+            .options {
+                grid-template-columns: 1fr;
+            }
+            .options.true-false {
+                grid-template-columns: 1fr 1fr;
+            }
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            .question-text {
+                flex-wrap: wrap;
+            }
+            .concept-grid {
+                grid-template-columns: 1fr;
+            }
+            .tabela-tipos {
+                font-size: 0.75rem;
+            }
+            .tabela-tipos th,
+            .tabela-tipos td {
+                padding: 6px 10px;
+            }
+            .code-wrapper .code-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .code-wrapper .code-header .code-actions {
+                justify-content: center;
+            }
+            .code-block {
+                font-size: 0.7rem;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .header h1 {
+                font-size: 1.2rem;
+            }
+            .badge {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+            .options.true-false {
+                grid-template-columns: 1fr;
+            }
+            .code-block {
+                font-size: 0.6rem;
+                padding: 10px;
+                line-height: 1.6;
+            }
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            .header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .badge {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .option.correct {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .option.wrong {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .result-box {
+                border: 2px solid #f7971e !important;
+            }
+            body {
+                background: white !important;
+                padding: 10px !important;
+            }
+            .container {
+                max-width: 100% !important;
+            }
+            .btn-top {
+                display: none !important;
+            }
+            .highlight-box {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .comparison-item {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .code-wrapper .code-header .code-actions button {
+                display: none !important;
+            }
+            .code-wrapper .code-header .code-title {
+                color: #333;
+            }
+            .code-block {
+                background: #f5f5f5;
+                color: #1a1a2e;
+            }
+            .code-block .comment {
+                color: #28a745;
+            }
+            .code-block .keyword {
+                color: #f7971e;
+            }
+            .code-block .string {
+                color: #dc3545;
+            }
+            .code-block .function {
+                color: #17a2b8;
+            }
+            .code-block .variable {
+                color: #6c757d;
+            }
+            .code-block .number {
+                color: #f7971e;
+            }
+            .code-block .operator {
+                color: #dc3545;
+            }
+            .code-block .output {
+                color: #28a745;
+            }
+            .code-block .error {
+                color: #dc3545;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ============================================================
+        HEADER
+        ============================================================ -->
+        <div class="header">
+            <h1>📦 TEMA <span>2</span></h1>
+            <p>Variáveis Simples em JavaScript</p>
+            <div class="badge-group">
+                <span class="badge">📖 Conceitos</span>
+                <span class="badge">📝 12 questões</span>
+                <span class="badge">🎯 Variáveis | Tipos | Escopos</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        INTRODUÇÃO
+        ============================================================ -->
+        <div class="card">
+            <h2>📦 O que são Variáveis?</h2>
+
+            <div class="highlight-box yellow">
+                💡 <strong>Analogia:</strong> Variáveis são como <strong>caixas</strong> onde você pode guardar coisas diferentes. Cada caixa tem um nome (identificador) e pode armazenar um valor (conteúdo).
+            </div>
+
+            <p>Variáveis em JavaScript são <strong>espaços de armazenamento</strong> que permitem guardar e manipular dados de diferentes tipos. Elas funcionam como <strong>containers</strong> onde você pode colocar números, textos, listas e muito mais.</p>
+
+            <!-- CÓDIGO 1: INTRODUÇÃO -->
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 exemplo-variaveis.js</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo(this, 'codigo-intro')">📋 Copiar</button>
+                        <button class="run-btn" onclick="executarOneCompiler('codigo-intro')">▶️ Executar</button>
+                    </div>
+                </div>
+                <div class="code-block" id="codigo-intro">
+                    <span class="comment">// Criando uma variável (caixa) chamada "idade"</span>
+                    <span class="keyword">let</span> idade <span class="operator">=</span> <span class="number">25</span>;
+
+                    <span class="comment">// Criando uma variável (caixa) chamada "nome"</span>
+                    <span class="keyword">let</span> nome <span class="operator">=</span> <span class="string">"João"</span>;
+
+                    <span class="comment">// Usando as variáveis</span>
+                    <span class="function">console</span>.<span class="function">log</span>(<span class="string">"Nome:"</span>, nome);
+                    <span class="function">console</span>.<span class="function">log</span>(<span class="string">"Idade:"</span>, idade);
+                </div>
+                <span class="copy-feedback" id="feedback-intro">✅ Copiado!</span>
+            </div>
+
+            <div class="highlight-box blue">
+                📌 <strong>IMPORTANTE:</strong> JavaScript é <strong>Case Sensitive</strong> — diferencia letras maiúsculas e minúsculas. As variáveis <code>nome</code> e <code>Nome</code> são diferentes!
+            </div>
+        </div>
+
+        <!-- ============================================================
+        DECLARAÇÃO DE VARIÁVEIS
+        ============================================================ -->
+        <div class="card">
+            <h2>📝 Declaração de Variáveis</h2>
+
+            <p>Em JavaScript, existem <strong>4 maneiras</strong> de declarar variáveis:</p>
+
+            <div class="comparison-grid">
+                <div class="comparison-item var">
+                    <h4>🔴 var</h4>
+                    <div class="exemplo"><span class="keyword">var</span> x <span class="operator">=</span> <span class="number">10</span>;</div>
+                    <div class="descricao">Escopo de função. Evitar usar em código moderno.</div>
+                </div>
+                <div class="comparison-item let">
+                    <h4>🔵 let</h4>
+                    <div class="exemplo"><span class="keyword">let</span> y <span class="operator">=</span> <span class="number">20</span>;</div>
+                    <div class="descricao">Escopo de bloco. Permite reatribuição.</div>
+                </div>
+                <div class="comparison-item const">
+                    <h4>🟢 const</h4>
+                    <div class="exemplo"><span class="keyword">const</span> z <span class="operator">=</span> <span class="number">30</span>;</div>
+                    <div class="descricao">Escopo de bloco. Valor <strong>não pode</strong> ser alterado.</div>
+                </div>
+            </div>
+
+            <div class="highlight-box orange">
+                ⚠️ <strong>DICA:</strong> Use <strong>const</strong> sempre que possível, <strong>let</strong> quando precisar alterar o valor, e <strong>var</strong> apenas para suporte a navegadores antigos (pré-2015).
+            </div>
+
+            <h3>📌 Regra CamelCase</h3>
+            <p>A regra <strong>CamelCase</strong> é uma convenção para nomear variáveis com mais de uma palavra:</p>
+
+            <!-- CÓDIGO 2: CAMELCASE -->
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 camelcase.js</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo(this, 'codigo-camelcase')">📋 Copiar</button>
+                        <button class="run-btn" onclick="executarOneCompiler('codigo-camelcase')">▶️ Executar</button>
+                    </div>
+                </div>
+                <div class="code-block" id="codigo-camelcase">
+                    <span class="comment">// CamelCase: primeira palavra minúscula, as demais com maiúscula</span>
+                    <span class="keyword">let</span> nomeDoUsuario <span class="operator">=</span> <span class="string">"Maria"</span>;
+                    <span class="keyword">let</span> idadeDaPessoa <span class="operator">=</span> <span class="number">30</span>;
+                    <span class="keyword">let</span> totalDeProdutos <span class="operator">=</span> <span class="number">150</span>;
+
+                    <span class="comment">// PascalCase: todas as palavras com maiúscula (usado para classes)</span>
+                    <span class="keyword">class</span> <span class="function">Usuario</span> { <span class="comment">/* ... */</span> }
+
+                    <span class="function">console</span>.<span class="function">log</span>(<span class="string">"Nome:"</span>, nomeDoUsuario);
+                    <span class="function">console</span>.<span class="function">log</span>(<span class="string">"Idade:"</span>, idadeDaPessoa);
+                    <span class="function">console</span>.<span class="function">log</span>(<span class="string">"Total:"</span>, totalDeProdutos);
+                </div>
+                <span class="copy-feedback" id="feedback-camelcase">✅ Copiado!</span>
+            </div>
+
+            <div class="highlight-box green">
+                ✅ <strong>BOA PRÁTICA:</strong> Sempre use nomes descritivos e intuitivos para suas variáveis. Evite nomes como <code>a</code>, <code>b</code>, <code>x</code>.
+            </div>
+        </div>
+
+        <!-- ============================================================
+        TIPOS DE DADOS
+        ============================================================ -->
+        <div class="card">
+            <h2>📊 Tipos de Dados em JavaScript</h2>
+            <p>JavaScript possui <strong>8 tipos principais</strong> de dados:</p>
+
+            <table class="tabela-tipos">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>String</strong></td>
+                        <td>Texto / Cadeia de caracteres</td>
+                        <td><span class="exemplo">"Olá mundo!"</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Number</strong></td>
+                        <td>Números inteiros ou decimais</td>
+                        <td><span class="exemplo">42, 3.14</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>BigInt</strong></td>
+                        <td>Números inteiros muito grandes</td>
+                        <td><span class="exemplo">12345678901234567890n</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Boolean</strong></td>
+                        <td>Verdadeiro ou Falso</td>
+                        <td><span class="exemplo">true, false</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Undefined</strong></td>
+                        <td>Variável declarada sem valor</td>
+                        <td><span class="exemplo">let x;</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Null</strong></td>
+                        <td>Ausência intencional de valor</td>
+                        <td><span class="exemplo">let x = null;</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Symbol</strong></td>
+                        <td>Valor único e imutável</td>
+                        <td><span class="exemplo">Symbol("id")</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Object</strong></td>
+                        <td>Coleção de dados (chave-valor)</td>
+                        <td><span class="exemplo">{ nome: "João", idade: 25 }</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📌 Strings e Números - Exemplos</h3>
+
+            <!-- CÓDIGO 3: STRINGS E NÚMEROS -->
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 strings-numeros.js</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo(this, 'codigo-tipos')">📋 Copiar</button>
+                        <button class="run-btn" onclick="executarOneCompiler('codigo-tipos')">▶️ Executar</button>
+                    </div>
+                </div>
+                <div class="code-block" id="codigo-tipos">
+                    <span class="comment">// STRINGS - Texto</span>
+                    <span class="keyword">let</span> saudacao <span class="operator">=</span> <span class="string">"Olá, mundo!"</span>;
+                    <span class="keyword">let</span> nome <span class="operator">=</span> <span class="string">'João'</span>;
+                    <span class="keyword">let</span> mensagem <span class="operator">=</span> <span class="string">`Bem-vindo, ${nome}`</span>;
+
+                    <span class="comment">// NÚMEROS - Inteiros e Decimais</span>
+                    <span class="keyword">let</span> idade <span class="operator">=</span> <span class="number">25</span>;
+                    <span class="keyword">let</span> altura <span class="operator">=</span> <span class="number">1.75</span>;
+                    <span class="keyword">let</span> preco <span class="operator">=</span> <span class="number">199.90</span>;
+
+                    <span class="comment">// CONVERSÃO: parseInt() e parseFloat()</span>
+                    <span class="keyword">let</span> textoNumero <span class="operator">=</span> <span class="string">"42"</span>;
+                    <span class="keyword">let</span> numeroInteiro <span class="operator">=</span> <span class="function">parseInt</span>(textoNumero);  <span class="comment">// 42</span>
+                    <span class="keyword">let</span> numeroDecimal <span class="operator">=</span> <span class="function">parseFloat</span>(<span class="string">"3.14"</span>); <span class="comment">// 3.14</span>
+
+                    <span class="function">console</span>.<span class="function">log</span>(<span class="string">"Saudação:"</span>, saudacao);
+                    <span class="function">console</span>.<span class="function">log</span>(<span class="string">"Mensagem:"</span>, mensagem);
+                    <span class="function">console</span>.<span class="function">log</span>(<span class="string">"Inteiro:"</span>, numeroInteiro);
+                    <span class="function">console</span>.<span class="function">log</span>(<span class="string">"Decimal:"</span>, numeroDecimal);
+                </div>
+                <span class="copy-feedback" id="feedback-tipos">✅ Copiado!</span>
+            </div>
+
+            <div class="highlight-box tip">
+                💡 <strong>DICA:</strong> Use <code>parseInt()</code> para converter strings em números inteiros e <code>parseFloat()</code> para números com casas decimais.
+            </div>
+        </div>
+
+        <!-- ============================================================
+        ESCOPO DE VARIÁVEIS
+        ============================================================ -->
+        <div class="card">
+            <h2>🎯 Escopo de Variáveis</h2>
+            <p>O <strong>escopo</strong> define onde uma variável é <strong>visível</strong> e pode ser acessada.</p>
+
+            <div class="concept-grid">
+                <div class="concept-box">
+                    <h4>🌍 Global</h4>
+                    <p>Variáveis declaradas fora de qualquer função ou bloco. Acessíveis em <strong>todo</strong> o código.</p>
+                    <div class="code-mini">
+                        <span class="c-keyword">let</span> global <span class="c-operator">=</span> <span class="c-string">"Sou global"</span>;
+                    </div>
+                </div>
+                <div class="concept-box">
+                    <h4>📦 Função</h4>
+                    <p>Variáveis declaradas dentro de uma função. Acessíveis <strong>apenas</strong> dentro dela.</p>
+                    <div class="code-mini">
+                        <span class="c-keyword">function</span> teste() {<br>
+                        &nbsp;&nbsp;<span class="c-keyword">let</span> local <span class="c-operator">=</span> <span class="c-string">"Sou local"</span>;<br>
+                        }
+                    </div>
+                </div>
+                <div class="concept-box">
+                    <h4>🔲 Bloco</h4>
+                    <p>Variáveis declaradas com <code>let</code> ou <code>const</code> dentro de um bloco <code>{ }</code>.</p>
+                    <div class="code-mini">
+                        <span class="c-keyword">if</span> (<span class="c-keyword">true</span>) {<br>
+                        &nbsp;&nbsp;<span class="c-keyword">let</span> bloco <span class="c-operator">=</span> <span class="c-string">"Sou do bloco"</span>;<br>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- CÓDIGO 4: ESCOPO -->
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 escopo.js</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo(this, 'codigo-escopo')">📋 Copiar</button>
+                        <button class="run-btn" onclick="executarOneCompiler('codigo-escopo')">▶️ Executar</button>
+                    </div>
+                </div>
+                <div class="code-block" id="codigo-escopo">
+                    <span class="comment">// Exemplo de escopos</span>
+                    <span class="keyword">let</span> global <span class="operator">=</span> <span class="string">"🌍 Global"</span>;
+
+                    <span class="keyword">function</span> <span class="function">exemplo</span>() {
+                        <span class="keyword">let</span> funcao <span class="operator">=</span> <span class="string">"📦 Função"</span>;
+
+                        <span class="keyword">if</span> (<span class="keyword">true</span>) {
+                            <span class="keyword">let</span> bloco <span class="operator">=</span> <span class="string">"🔲 Bloco"</span>;
+                            <span class="function">console</span>.<span class="function">log</span>(global); <span class="comment">// ✅ Acessível</span>
+                            <span class="function">console</span>.<span class="function">log</span>(funcao);  <span class="comment">// ✅ Acessível</span>
+                            <span class="function">console</span>.<span class="function">log</span>(bloco);   <span class="comment">// ✅ Acessível</span>
+                        }
+
+                        <span class="comment">// console.log(bloco); ❌ ERRO - não acessível fora do bloco</span>
+                    }
+
+                    exemplo();
+                </div>
+                <span class="copy-feedback" id="feedback-escopo">✅ Copiado!</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        OBJETOS E NOTAÇÃO DE PONTO
+        ============================================================ -->
+        <div class="card">
+            <h2>🔗 Objetos e Notação de Ponto</h2>
+
+            <p><strong>Objetos</strong> são estruturas que agrupam dados relacionados em pares <strong>chave-valor</strong>.</p>
+
+            <!-- CÓDIGO 5: OBJETOS -->
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 objetos.js</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo(this, 'codigo-objetos')">📋 Copiar</button>
+                        <button class="run-btn" onclick="executarOneCompiler('codigo-objetos')">▶️ Executar</button>
+                    </div>
+                </div>
+                <div class="code-block" id="codigo-objetos">
+                    <span class="comment">// Criando um objeto</span>
+                    <span class="keyword">let</span> pessoa <span class="operator">=</span> {
+                        nome: <span class="string">"Maria"</span>,
+                        idade: <span class="number">30</span>,
+                        cidade: <span class="string">"São Paulo"</span>,
+                        <span class="function">saudacao</span>: <span class="keyword">function</span>() {
+                            <span class="keyword">return</span> <span class="string">"Olá, "</span> <span class="operator">+</span> <span class="keyword">this</span>.nome;
+                        }
+                    };
+
+                    <span class="comment">// Acessando com NOTAÇÃO DE PONTO</span>
+                    <span class="function">console</span>.<span class="function">log</span>(pessoa.nome);     <span class="comment">// "Maria"</span>
+                    <span class="function">console</span>.<span class="function">log</span>(pessoa.idade);    <span class="comment">// 30</span>
+                    <span class="function">console</span>.<span class="function">log</span>(pessoa.cidade);   <span class="comment">// "São Paulo"</span>
+                    <span class="function">console</span>.<span class="function">log</span>(pessoa.saudacao()); <span class="comment">// "Olá, Maria"</span>
+                </div>
+                <span class="copy-feedback" id="feedback-objetos">✅ Copiado!</span>
+            </div>
+
+            <div class="highlight-box purple">
+                📌 <strong>NOTAÇÃO DE PONTO:</strong> Use <code>objeto.propriedade</code> para acessar valores e <code>objeto.metodo()</code> para executar funções dentro do objeto.
+            </div>
+        </div>
+
+        <!-- ============================================================
+        AVALIAÇÃO
+        ============================================================ -->
+        <div class="card" id="testes">
+            <h2>✏️ Exercício de Fixação</h2>
+            <p>Responda as <strong>12 questões</strong> sobre variáveis em JavaScript.</p>
+            <p style="margin-bottom: 15px;">Ao final, clique em <strong>"Verificar Respostas"</strong> para corrigir.</p>
+
+            <!-- ===== Q1 ===== -->
+            <div class="question" id="q1">
+                <div class="question-text">
+                    <span class="question-number">1</span>
+                    Qual palavra-chave é usada para declarar uma variável que NÃO pode ser reatribuída?
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q1" value="A"><label>var</label></div>
+                    <div class="option"><input type="radio" name="q1" value="B"><label>let</label></div>
+                    <div class="option"><input type="radio" name="q1" value="C"><label>const</label></div>
+                    <div class="option"><input type="radio" name="q1" value="D"><label>static</label></div>
+                </div>
+            </div>
+
+            <!-- ===== Q2 ===== -->
+            <div class="question" id="q2">
+                <div class="question-text">
+                    <span class="question-number">2</span>
+                    Qual é a convenção de nomenclatura para variáveis com mais de uma palavra?
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q2" value="A"><label>snake_case</label></div>
+                    <div class="option"><input type="radio" name="q2" value="B"><label>camelCase</label></div>
+                    <div class="option"><input type="radio" name="q2" value="C"><label>kebab-case</label></div>
+                    <div class="option"><input type="radio" name="q2" value="D"><label>SCREAMING_CASE</label></div>
+                </div>
+            </div>
+
+            <!-- ===== Q3 ===== -->
+            <div class="question" id="q3">
+                <div class="question-text">
+                    <span class="question-number">3</span>
+                    Qual tipo de dado é usado para armazenar texto?
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q3" value="A"><label>Number</label></div>
+                    <div class="option"><input type="radio" name="q3" value="B"><label>Boolean</label></div>
+                    <div class="option"><input type="radio" name="q3" value="C"><label>String</label></div>
+                    <div class="option"><input type="radio" name="q3" value="D"><label>Object</label></div>
+                </div>
+            </div>
+
+            <!-- ===== Q4 ===== -->
+            <div class="question true-false" id="q4">
+                <div class="question-text">
+                    <span class="question-number">4</span>
+                    JavaScript diferencia letras maiúsculas e minúsculas (Case Sensitive).
+                </div>
+                <div class="options true-false">
+                    <div class="option"><input type="radio" name="q4" value="V"><label>✅ Verdadeiro</label></div>
+                    <div class="option"><input type="radio" name="q4" value="F"><label>❌ Falso</label></div>
+                </div>
+            </div>
+
+            <!-- ===== Q5 ===== -->
+            <div class="question" id="q5">
+                <div class="question-text">
+                    <span class="question-number">5</span>
+                    O que significa o tipo de dado <code>undefined</code>?
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q5" value="A"><label>Um valor vazio intencional</label></div>
+                    <div class="option"><input type="radio" name="q5" value="B"><label>Uma variável declarada sem valor</label></div>
+                    <div class="option"><input type="radio" name="q5" value="C"><label>Um número muito grande</label></div>
+                    <div class="option"><input type="radio" name="q5" value="D"><label>Um valor booleano falso</label></div>
+                </div>
+            </div>
+
+            <!-- ===== Q6 ===== -->
+            <div class="question" id="q6">
+                <div class="question-text">
+                    <span class="question-number">6</span>
+                    Qual função converte uma string em um número inteiro?
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q6" value="A"><label>toString()</label></div>
+                    <div class="option"><input type="radio" name="q6" value="B"><label>parseInt()</label></div>
+                    <div class="option"><input type="radio" name="q6" value="C"><label>parseFloat()</label></div>
+                    <div class="option"><input type="radio" name="q6" value="D"><label>Number()</label></div>
+                </div>
+            </div>
+
+            <!-- ===== Q7 ===== -->
+            <div class="question true-false" id="q7">
+                <div class="question-text">
+                    <span class="question-number">7</span>
+                    Uma variável declarada com <code>var</code> tem escopo de bloco.
+                </div>
+                <div class="options true-false">
+                    <div class="option"><input type="radio" name="q7" value="V"><label>✅ Verdadeiro</label></div>
+                    <div class="option"><input type="radio" name="q7" value="F"><label>❌ Falso</label></div>
+                </div>
+            </div>
+
+            <!-- ===== Q8 ===== -->
+            <div class="question" id="q8">
+                <div class="question-text">
+                    <span class="question-number">8</span>
+                    Qual é a forma correta de declarar um objeto em JavaScript?
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q8" value="A"><label>let obj = [nome: "João"]</label></div>
+                    <div class="option"><input type="radio" name="q8" value="B"><label>let obj = {nome: "João"}</label></div>
+                    <div class="option"><input type="radio" name="q8" value="C"><label>let obj = (nome: "João")</label></div>
+                    <div class="option"><input type="radio" name="q8" value="D"><label>let obj = < nome: "João" ></label></div>
+                </div>
+            </div>
+
+            <!-- ===== Q9 ===== -->
+            <div class="question" id="q9">
+                <div class="question-text">
+                    <span class="question-number">9</span>
+                    Qual é o valor booleano que representa "verdadeiro"?
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q9" value="A"><label>1</label></div>
+                    <div class="option"><input type="radio" name="q9" value="B"><label>"true"</label></div>
+                    <div class="option"><input type="radio" name="q9" value="C"><label>true</label></div>
+                    <div class="option"><input type="radio" name="q9" value="D"><label>True</label></div>
+                </div>
+            </div>
+
+            <!-- ===== Q10 ===== -->
+            <div class="question" id="q10">
+                <div class="question-text">
+                    <span class="question-number">10</span>
+                    O que faz a notação de ponto (<code>objeto.propriedade</code>)?
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q10" value="A"><label>Cria um novo objeto</label></div>
+                    <div class="option"><input type="radio" name="q10" value="B"><label>Acessa uma propriedade do objeto</label></div>
+                    <div class="option"><input type="radio" name="q10" value="C"><label>Remove uma propriedade</label></div>
+                    <div class="option"><input type="radio" name="q10" value="D"><label>Converte o objeto em string</label></div>
+                </div>
+            </div>
+
+            <!-- ===== Q11 ===== -->
+            <div class="question true-false" id="q11">
+                <div class="question-text">
+                    <span class="question-number">11</span>
+                    Uma variável declarada com <code>const</code> pode ter seu valor alterado.
+                </div>
+                <div class="options true-false">
+                    <div class="option"><input type="radio" name="q11" value="V"><label>✅ Verdadeiro</label></div>
+                    <div class="option"><input type="radio" name="q11" value="F"><label>❌ Falso</label></div>
+                </div>
+            </div>
+
+            <!-- ===== Q12 ===== -->
+            <div class="question" id="q12">
+                <div class="question-text">
+                    <span class="question-number">12</span>
+                    Qual tipo de dado é usado para números com casas decimais?
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q12" value="A"><label>Integer</label></div>
+                    <div class="option"><input type="radio" name="q12" value="B"><label>Float</label></div>
+                    <div class="option"><input type="radio" name="q12" value="C"><label>Number</label></div>
+                    <div class="option"><input type="radio" name="q12" value="D"><label>Decimal</label></div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;" class="no-print">
+                <button class="btn" onclick="corrigirQuiz()">✅ Verificar Respostas</button>
+                <button class="btn btn-secondary" onclick="limparQuiz()">🔄 Limpar respostas</button>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        RESULTADO
+        ============================================================ -->
+        <div class="card result-box" id="resultado">
+            <h2>📊 Resultado do Exercício</h2>
+            <div class="score" id="pontuacao">0 / 12</div>
+            <p style="margin: 10px 0;">Respostas corretas:</p>
+            <div id="feedback"></div>
+
+            <div style="margin-top: 20px;" class="no-print">
+                <button class="btn btn-success" onclick="window.print()">🖨️ Imprimir Gabarito (PDF)</button>
+                <button class="btn btn-danger" onclick="limparQuiz()">🔄 Recomeçar</button>
+            </div>
+            <div class="highlight-box blue" style="margin-top: 15px; text-align: left;">
+                📸 <strong>IMPORTANTE:</strong> Clique em "Imprimir Gabarito" para salvar o resultado em PDF.
+            </div>
+        </div>
+
+        <!-- ============================================================
+        FOOTER
+        ============================================================ -->
+        <div class="footer no-print">
+            <p>📦 TEMA 2 - Variáveis em JavaScript | Material de Estudo + Exercício de Fixação</p>
+            <p>🎯 Conceitos, tipos, escopos e avaliação</p>
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+    BOTÃO TOPO
+    ============================================================ -->
+    <button class="btn-top no-print" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Topo</button>
+
+    <!-- ============================================================
+    SCRIPTS
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // FUNÇÕES DOS BOTÕES DE CÓDIGO
+        // ============================================================
+
+        function copiarCodigo(btn, elementId) {
+            var codeElement = document.getElementById(elementId);
+            var codeText = codeElement.textContent;
+            var cleanCode = codeText.trim();
+
+            navigator.clipboard.writeText(cleanCode).then(function() {
+                var feedbackId = elementId.replace('codigo-', 'feedback-');
+                var feedback = document.getElementById(feedbackId);
+                if (feedback) {
+                    feedback.classList.add('show');
+                    setTimeout(function() {
+                        feedback.classList.remove('show');
+                    }, 2000);
+                }
+
+                var originalText = btn.textContent;
+                btn.textContent = '✅ Copiado!';
+                setTimeout(function() {
+                    btn.textContent = originalText;
+                }, 2000);
+            }).catch(function() {
+                alert('Não foi possível copiar. Selecione o código manualmente.');
+            });
+        }
+
+        function executarOneCompiler(elementId) {
+            var codeElement = document.getElementById(elementId);
+            var codeText = codeElement.textContent;
+            var cleanCode = codeText.trim();
+            var encodedCode = encodeURIComponent(cleanCode);
+            var url = 'https://onecompiler.com/javascript?code=' + encodedCode;
+            window.open(url, '_blank');
+        }
+
+        // ============================================================
+        // GABARITO OFICIAL
+        // ============================================================
+        const gabarito = {
+            q1: 'C', // const
+            q2: 'B', // camelCase
+            q3: 'C', // String
+            q4: 'V', // Verdadeiro
+            q5: 'B', // Variável declarada sem valor
+            q6: 'B', // parseInt()
+            q7: 'F', // Falso (var tem escopo de função)
+            q8: 'B', // let obj = {nome: "João"}
+            q9: 'C', // true
+            q10: 'B', // Acessa uma propriedade
+            q11: 'F', // Falso (const não pode ser alterado)
+            q12: 'C' // Number
+        };
+
+        // ============================================================
+        // FUNÇÕES DO QUIZ
+        // ============================================================
+        function corrigirQuiz() {
+            let acertos = 0;
+            let feedbackHTML = '';
+            let todasRespondidas = true;
+
+            for (let [id, gab] of Object.entries(gabarito)) {
+                const selected = document.querySelector(`input[name="${id}"]:checked`);
+                const questionDiv = document.getElementById(id);
+                const options = questionDiv.querySelectorAll('.option');
+
+                if (!selected) {
+                    todasRespondidas = false;
+                    options.forEach(opt => opt.classList.add('disabled'));
+                    continue;
+                }
+
+                const resposta = selected.value;
+                const isCorrect = resposta === gab;
+
+                options.forEach(opt => {
+                    const radio = opt.querySelector('input[type="radio"]');
+                    if (radio.value === gab) {
+                        opt.classList.add('correct');
+                    } else if (radio.checked && radio.value !== gab) {
+                        opt.classList.add('wrong');
+                    }
+                    radio.disabled = true;
+                });
+
+                const num = id.replace('q', '');
+                if (isCorrect) {
+                    acertos++;
+                    feedbackHTML += `<div class="feedback-item correct">✅ Q${num} - Correta</div>`;
+                } else {
+                    feedbackHTML += `<div class="feedback-item wrong">❌ Q${num} - Incorreta (resposta: ${gab})</div>`;
+                }
+            }
+
+            if (!todasRespondidas) {
+                alert('⚠️ Responda todas as questões antes de finalizar!');
+                return;
+            }
+
+            document.getElementById('pontuacao').textContent = acertos + ' / 12';
+            document.getElementById('feedback').innerHTML = feedbackHTML;
+            document.getElementById('resultado').classList.add('show');
+
+            document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            let mensagem = '';
+            if (acertos === 12) {
+                mensagem = `
+                        <div class="highlight-box green" style="margin-top: 15px; text-align: left;">
+                            🎉 <strong>PARABÉNS! Você acertou todas!</strong> Excelente domínio sobre variáveis em JavaScript!
+                        </div>
+                    `;
+            } else if (acertos >= 9) {
+                mensagem = `
+                        <div class="highlight-box tip" style="margin-top: 15px; text-align: left;">
+                            💪 <strong>Bom trabalho!</strong> Você acertou ${acertos}/12. Revise os tópicos que errou!
+                        </div>
+                    `;
+            } else if (acertos >= 6) {
+                mensagem = `
+                        <div class="highlight-box blue" style="margin-top: 15px; text-align: left;">
+                            📚 <strong>Continue praticando!</strong> Você acertou ${acertos}/12. Reveja o material para fixar!
+                        </div>
+                    `;
+            } else {
+                mensagem = `
+                        <div class="highlight-box red" style="margin-top: 15px; text-align: left;">
+                            📚 <strong>Que tal revisar o conteúdo novamente?</strong> Você acertou ${acertos}/12. Releia o material!
+                        </div>
+                    `;
+            }
+            document.getElementById('feedback').innerHTML += mensagem;
+        }
+
+        function limparQuiz() {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => {
+                radio.checked = false;
+                radio.disabled = false;
+            });
+
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong', 'disabled');
+            });
+
+            document.getElementById('resultado').classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============================================================
+        // CLICK NAS OPÇÕES
+        // ============================================================
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function(e) {
+                if (this.classList.contains('disabled')) return;
+                const radio = this.querySelector('input[type="radio"]');
+                if (radio) {
+                    radio.checked = true;
+                    const event = new Event('change', { bubbles: true });
+                    radio.dispatchEvent(event);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
